@@ -12,7 +12,11 @@ const app = require('./app');
 require('dotenv').config({ path: 'variables.env' });
 
 // Connect to our Database and handle any bad connections
-mongoose.connect(process.env.DATABASE);
+mongoose.connect(process.env.DATABASE, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
 
 mongoose.connection.on('error', err => {
   console.error(`Error → ${err.message}`);

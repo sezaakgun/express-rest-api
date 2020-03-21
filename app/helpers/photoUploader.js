@@ -1,6 +1,6 @@
-import multer, { diskStorage } from 'multer';
+const multer = require('multer');
 
-const storage = diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads/');
   },

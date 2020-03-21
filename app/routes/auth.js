@@ -1,20 +1,16 @@
-import Router from 'express';
-
-// validators
-import validate from '../controllers/middleware/validateRequest';
-
-// validations
-import { registerValidation, loginValidation } from './validations/auth';
+const router = require('express').Router();
 
 // controllers
-import { register, login } from '../controllers/userController';
+const userController = require('../controllers/userController');
 
-// helpers
+// validations
+const authValidations = require('./validations/auth');
 
-const router = Router();
+// validators
+const validate = require('../controllers/middleware/validateRequest');
 
 // routes
-router.post('/register', validate(registerValidation), register);
-router.post('/login', validate(loginValidation), login);
+router.post('/register', validate(authValidations.registerValidation), userController.register);
+router.post('/login', validate(authValidations.loginValidation), userController.login);
 
-export default router;
+module.exports = router;

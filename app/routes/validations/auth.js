@@ -1,28 +1,34 @@
-import { object, string } from 'joi';
+const joi = require('joi');
 
-export const registerValidation = object().keys({
-  name: string()
+exports.registerValidation = joi.object().keys({
+  name: joi
+    .string()
     .trim()
     .min(2)
     .required(),
-  surname: string()
+  surname: joi
+    .string()
     .trim()
     .min(2)
     .required(),
-  email: string()
+  email: joi
+    .string()
     .email()
     .required(),
-  password: string()
+  password: joi
+    .string()
     .min(6)
     .max(30)
     .required()
 });
 
-export const loginValidation = object().keys({
-  email: string()
+exports.loginValidation = joi.object().keys({
+  email: joi
+    .string()
     .email()
     .required(),
-  password: string()
+  password: joi
+    .string()
     .min(6)
     .max(30)
     .required()

@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-import { hash, compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // models
 const User = require('../models/User').default;
@@ -10,7 +10,7 @@ const userEnums = require('../enums/userEnums');
 
 // helpers
 
-export const register = async (req, res) => {
+exports.register = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -20,7 +20,7 @@ export const register = async (req, res) => {
       });
     }
 
-    const passHash = await hash(req.body.password, 10);
+    const passHash = await bcrypt.hash(req.body.password, 10);
 
     const newUser = new User({
       name: req.body.name,
@@ -42,13 +42,13 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
+exports.login = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email });
 
     user = user || Object({ password: '' });
 
-    const result = await compare(req.body.password, user.password);
+    const result = await bcrypt.compare(req.body.password, user.password);
 
     if (!result) {
       return res.status(401).json({
@@ -57,7 +57,7 @@ export const login = async (req, res) => {
     }
 
     const expires = '6h';
-    const token = sign(
+    const token = jwt.sign(
       {
         email: user.email,
         userId: user._id
@@ -81,7 +81,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const findOne = (req, res) => {
+exports.find = (req, res) => {
   User.findOne({ _id: req.params.id }, { email: 0, password: 0 }, (err, user) => {
     if (err) {
       return res.status(500).json({
@@ -95,7 +95,7 @@ export const findOne = (req, res) => {
   });
 };
 
-export const deleteOne = (req, res) => {
+exports.delete = (req, res) => {
   User.findOneAndUpdate({ _id: req.params.id }, { state: 1 }, err => {
     if (err) {
       return res.status(500).json({
@@ -109,7 +109,7 @@ export const deleteOne = (req, res) => {
   });
 };
 
-export const updateOne = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const changes = {
       name: req.body.name,

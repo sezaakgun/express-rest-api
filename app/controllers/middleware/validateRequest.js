@@ -1,4 +1,4 @@
-import { validate } from 'joi';
+const joi = require('joi');
 
 const validator = (joiSchema, validationType) => (req, res, next) => {
   // validation type must be body, query or params
@@ -7,7 +7,7 @@ const validator = (joiSchema, validationType) => (req, res, next) => {
   // get the requst object that will be validated
   const data = req[type];
 
-  validate(
+  joi.validate(
     data,
     joiSchema,
     // stripUnknown is removing extra fields from request data
@@ -32,4 +32,4 @@ const validator = (joiSchema, validationType) => (req, res, next) => {
   );
 };
 
-export default validator;
+module.exports = validator;

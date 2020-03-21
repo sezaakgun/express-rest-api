@@ -1,6 +1,6 @@
-import { setApiKey, send } from '@sendgrid/mail';
+const sgMail = require('@sendgrid/mail');
 
-setApiKey(process.env.SENGRID_KEY);
+sgMail.setApiKey(process.env.SENGRID_KEY);
 
 export default async (to, subject, text) => {
   try {
@@ -11,7 +11,7 @@ export default async (to, subject, text) => {
       html: text
     };
 
-    await send(msg);
+    await sgMail.send(msg);
 
     return true;
   } catch (err) {

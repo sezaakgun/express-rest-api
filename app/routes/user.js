@@ -1,17 +1,12 @@
-import Router from 'express';
+const router = require('express').Router();
+// controllers
+const userController = require('../controllers/userController');
 
 // middleware
-import checkAuth from '../controllers/middleware/checkAuth';
+const checkAuth = require('../controllers/middleware/checkAuth');
 
-// controllers
-import { findOne, updateOne, deleteOne } from '../controllers/userController';
+router.get('/:id', checkAuth, userController.find);
+router.put('/:id', checkAuth, userController.update);
+router.delete('/:id', checkAuth, userController.delete);
 
-// helpers
-
-const router = Router();
-
-router.get('/:id', checkAuth, findOne);
-router.put('/:id', checkAuth, updateOne);
-router.delete('/:id', checkAuth, deleteOne);
-
-export default router;
+module.exports = router;
