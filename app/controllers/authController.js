@@ -9,6 +9,33 @@ const User = require('../models/User').default;
 // enums
 const authEnums = require('../enums/authEnums');
 
+/**
+ * @api {post} /auth/register Register
+ * @apiName Register
+ * @apiGroup Auth
+ *
+ * @apiParam {String} email Users email.
+ * @apiParam {String} password Users password.
+ * @apiParam {String} name Users name.
+ * @apiParam {String} surname Users surname.
+ *
+ * @apiSuccess {String} message Success message.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "message": "$current-success-message",
+ *     }
+ *
+ * @apiError UserMailExist Mail provided by user is used before.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "message": "$current-error-message"
+ *       "email" : "$user-email"
+ *     }
+ */
 exports.register = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -41,6 +68,35 @@ exports.register = async (req, res) => {
   }
 };
 
+/**
+ * @api {post} /auth/login Login
+ * @apiName Login
+ * @apiGroup Auth
+ *
+ * @apiParam {String} email Users email.
+ *
+ * @apiSuccess {String} message Success message.
+ * @apiSuccess {String} token JWT Token.
+ * @apiSuccess {Number} expiresIn JWT Token Lifespan.
+ * @apiSuccess {String} userId Mongo Object ID.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "message": "$current-success-message",
+ *       "token": "jwt-token",
+ *       "expiresIn": "jwt-token-lifespan",
+ *       "userId": : "user-id"
+ *     }
+ *
+ * @apiError AuthFailed User credentials doesn't match
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Not Found
+ *     {
+ *       "message": "$current-error-message"
+ *     }
+ */
 exports.login = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email });
