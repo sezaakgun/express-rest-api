@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "a boilerplate for nodejs api layer",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com//sezaakgun/express-rest-api.git"
+  },
   "scripts": {
     "doc": "apidoc -i ./app",
     "start": "node ./start.js --ignore public/",
