@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
   },
   state: {
     type: Number,
-    default: 0
+    default: 1
   }
 });
 
