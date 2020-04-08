@@ -1,2 +1,4 @@
 node_modules
 variables.env
+/doc
+.DS_Store

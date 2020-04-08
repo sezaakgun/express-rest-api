@@ -1,0 +1,7 @@
+{
+    "name": "express rest api template",
+    "version": "1.0.0",
+    "description": "apiDoc basic example",
+    "title": "Documentation",
+    "url": "http://localhost:8080/v1"
+}
