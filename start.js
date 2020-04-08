@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-// READY?! Let's go!
-
 // import all of our models
 require('./app/models/User');
 
