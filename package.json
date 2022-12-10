@@ -20,7 +20,7 @@
     "cors": "^2.8.4",
     "debug": "~2.6.9",
     "dotenv": "4.0.0",
-    "express": "~4.16.0",
+    "express": "~4.17.3",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^6.3.0",
